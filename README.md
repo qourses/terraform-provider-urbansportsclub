@@ -24,7 +24,7 @@ To use the provider locally, create a `.terraformrc` file in your home directory
 ```hcl
 provider_installation {
   dev_overrides {
-    "qourses/urbansportsclub" = "/Users/lleifermann/go/bin"
+    "qourses/urbansportsclub" = "/Users/USERNAME/go/bin"
   }
   direct {}
 }

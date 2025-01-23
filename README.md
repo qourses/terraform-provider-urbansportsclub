@@ -49,6 +49,8 @@ go test ./...
 
 ## Example Usage
 
+### Provider Configuration
+
 ```hcl
 terraform {
   required_providers {
@@ -58,7 +60,27 @@ terraform {
   }
 }
 
-resource "urbansportsclub_example" "example" {
-  # Configure the resource
+provider "urbansportsclub" {
+  client_id = "CLIENT_ID"
+  client_secret = "CLIENT_SECRET"
+}
+```
+
+### Managing Webhooks
+
+```hcl
+data "urbansportsclub_provider" "current" {}
+
+resource "random_password" "urbansportsclub_space_webhook_secret" {
+  length  = 32
+  special = false
+  upper   = true
+}
+
+resource "urbansportsclub_webhook" "example" {
+  client_id     = data.urbansportsclub_provider.current.client_id
+  url           = "http://example.com/hooking"
+  shared_secret = random_password.urbansportsclub_space_webhook_secret.result
+  types         = [1]
 }
 ```
